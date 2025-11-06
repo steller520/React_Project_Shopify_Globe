@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="240" height="240" role="img" aria-labelledby="title1 desc1">
+  <title id="title1">Shopify Globe badge</title>
+  <desc id="desc1">A shopping bag icon containing a simplified globe — green badge logo</desc>
+  <!-- bag -->
+  <rect x="14" y="30" width="92" height="72" rx="10" fill="#1DB954"/>
+  <!-- bag handle -->
+  <path d="M32 28c0-8 8-14 20-14s20 6 20 14" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  <!-- globe circle -->
+  <circle cx="60" cy="66" r="26" fill="#ffffff"/>
+  <!-- globe meridians/latitudes -->
+  <path d="M60 40v52" stroke="#1DB954" stroke-width="2" stroke-linecap="round"/>
+  <path d="M34 66c0-14 12-26 26-26s26 12 26 26-12 26-26 26-26-12-26-26z" fill="none" stroke="#1DB954" stroke-width="2"/>
+  <path d="M45 52c6 0 12 0 18 0" stroke="#1DB954" stroke-width="2" stroke-linecap="round"/>
+  <path d="M45 80c6 0 12 0 18 0" stroke="#1DB954" stroke-width="2" stroke-linecap="round"/>
+</svg>
