@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { IoCartOutline } from "react-icons/io5";
+import { TiHomeOutline } from "react-icons/ti";
 
 // Header component with navigation links
 function Header() {
@@ -13,8 +15,8 @@ function Header() {
             <nav>
                 <ul className='flex gap-8 mr-4'>
                     {/* Navigation links */}
-                    <li><Link to="/" className='hover:text-yellow-300 transition-colors'>Home</Link></li>
-                    <li><Link to="/cart" className='hover:text-yellow-300 transition-colors'>Cart</Link></li>
+                    <li><Link to="/" className='hover:text-yellow-300 transition-colors flex items-center gap-2'><TiHomeOutline className='inline-block mr-1 w-8 h-8' />Home</Link></li>
+                    <li><Link to="/cart" className='hover:text-yellow-300 transition-colors flex items-center gap-2'><IoCartOutline className='inline-block mr-1 w-8 h-8' />Cart</Link></li>
                 </ul>
             </nav>
         </header>

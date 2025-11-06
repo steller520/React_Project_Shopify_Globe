@@ -4,6 +4,7 @@ import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Cart from './component/Cart.jsx'
 import ProductList from './component/ProductList.jsx'
+import ProductDetails from './component/ProductDetails.jsx'
 
 // Creates the router with routes configuration
 const router = createBrowserRouter([
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <ProductList />,
+      },
+      {
+        path: '/product/:id',
+        element: <ProductDetails />,
       },
     ],
   },
