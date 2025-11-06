@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addItem } from '../utils/CartSlice';
 
 // Component to display individual product details
 function ProductItem({ product }) {
@@ -10,6 +12,19 @@ function ProductItem({ product }) {
     const handleReadMore = () => {
         setIsExpanded(!isExpanded);
     }
+
+    const dispatch = useDispatch();
+
+    // Function to handle adding the product to the cart
+    const handleAddToCart = () => {
+        // Logic to add the product to the cart
+        product.quantity = 1;
+        dispatch(addItem(product));
+    }
+
+    
+
+
     return (
         <div className="relative flex flex-col border shadow-white/55 hover:scale-105 border-gray-200 p-4 m-4 rounded-lg shadow-lg bg-white/95 hover:shadow-xl transition-all duration-300 ease-in-out">
             <div>
@@ -25,7 +40,7 @@ function ProductItem({ product }) {
             </div>
             <div className='flex justify-between items-center w-full h-8 mt-auto'>
                 <p className='text-md  font-bold text-green-600'>Price: ${product.price}</p>
-                <button className='bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-300'>Add to Cart</button>
+                <button onClick={() => handleAddToCart()} className='bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-300'>Add to Cart</button>
             </div>
         </div>
     )

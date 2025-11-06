@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Header from './component/Header'
 import { Outlet } from 'react-router-dom'
+import { Provider } from 'react-redux';
+import appStore from './utils/appStore';
 
 // Main application component
 function App() {
@@ -27,8 +29,10 @@ function App() {
       <div className="App  bg-contain min-h-screen backdrop-blur-md" style={{ backgroundImage: `url('/src/assets/background.jpg')` }}>
         {/* Background overlay */}
         <div className=" bg-white/15 min-h-screen">
-          <Header />
-          <Outlet /> {/* Renders the matched child route component */}
+          <Provider store={appStore}>
+            <Header />
+            <Outlet /> {/* Renders the matched child route component */}
+          </Provider>
         </div>
       </div>
     </>
