@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CartItem from './CartItem';
-import { calculateTotal } from '../utils/CartSlice';
+import { calculateTotal, clearCart } from '../utils/CartSlice';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 function Cart() {
@@ -24,7 +24,10 @@ function Cart() {
     return (
         <div className="min-h-screen bg-gray-50 py-8">
             <div className="container mx-auto px-4 max-w-4xl">
-                <h2 className="text-3xl font-bold mb-8 text-gray-800">Shopping Cart</h2>
+                <div className="flex justify-between items-center mb-8">
+                    <h2 className="text-3xl font-bold mb-8 text-gray-800">Shopping Cart</h2>
+                    <button onClick={() => dispatch(clearCart())} className="text-red-500 hover:text-red-700 border border-red-500 rounded-2xl p-2 bg-red-200">Clear Cart</button>
+                </div>
                 {cartItems.length === 0 ? (
                     <div className="text-center py-16">
                         <p className="text-xl text-gray-500">Your cart is empty</p>
