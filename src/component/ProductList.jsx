@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useFetchProducts from '../utils/useFetchProducts'
 import ProductItem from './ProductItem';
+import { IoSearchSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 
 // Component to display a list of products
@@ -29,20 +30,27 @@ function ProductList() {
         <div>
             {<div className='flex flex-wrap lg:flex-nowrap md:gap-6 gap-4 mt-10 mb-4 mx-auto justify-center max-w-7xl'>
                 {categories.map((category, index) => (
-                    <button key={index} value={category.toLowerCase()} onClick={(e) => handleClick(e)} className='flex justify-center items-center border bg-linear-to-r from-green-400 to-yellow-500 text-white shadow-2xl border-green-500 lg:w-64 lg:h-18 w-32 h-12 rounded-2xl'>
+                    <button key={index} value={category.toLowerCase()} onClick={(e) => handleClick(e)} className='flex justify-center items-center border bg-blue-500 text-white shadow-lg border-blue-600 lg:w-64 lg:h-18 w-32 h-12 rounded-lg hover:bg-blue-600 transition-all'>
                         {category.toUpperCase()}
                     </button>
                 ))}
-                <button onClick={() => setFilteredProducts(products)} className='flex justify-center items-center border bg-linear-to-r from-green-400 to-yellow-500 text-white shadow-2xl border-green-500 lg:w-64 lg:h-18 w-32 h-12 rounded-2xl'>
+                <button onClick={() => setFilteredProducts(products)} className='flex justify-center items-center border bg-blue-500 text-white shadow-lg border-blue-600 lg:w-64 lg:h-18 w-32 h-12 rounded-lg hover:bg-blue-600 transition-all'>
                     Reset
                 </button>
-            </div>
+            </div>  
             }
+            <div className='flex items-center justify-between p-8 bg-blue-100 max-w-7xl mx-auto border border-blue-300 rounded-lg h-10 shadow-md'>
+                <h1 className='ml-4 text-3xl text-blue-800 font-semibold ' >Search</h1>
+                <div className='flex justify-between items-center w-auto gap-1.5'>
+                    <IoSearchSharp className=' ml-2 w-8 h-8 text-blue-600 text-2xl mt-2' />
+                    <input onChange={(e) => {handleSearch(e)}} className='border border-gray-300 rounded-lg px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white' type="text" placeholder='Search products...' />
+                </div>
+            </div>
             <div className='grid lg:grid-cols-4  sm:grid-cols-2 grid-cols-1 gap-4 max-w-7xl mx-auto'>
                 {filteredProducts.map(product => (
-                    
-                        <ProductItem key={product.id} product={product} />
-                    
+                    <li key={product.id}>
+                        <ProductItem product={product} />
+                    </li>
                 ))}
             </div>
         </div>
