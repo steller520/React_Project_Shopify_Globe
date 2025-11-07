@@ -5,12 +5,15 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Cart from './component/Cart.jsx'
 import ProductList from './component/ProductList.jsx'
 import ProductDetails from './component/ProductDetails.jsx'
+import Checkout from './component/Checkout.jsx'
+import NotFound from './component/NotFound.jsx'
 
 // Creates the router with routes configuration
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <NotFound />,
     children: [
       {
         path: '/cart',
@@ -23,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: '/product/:id',
         element: <ProductDetails />,
+      },
+      {
+        path: '/checkout',
+        element: <Checkout />,
       },
     ],
   },

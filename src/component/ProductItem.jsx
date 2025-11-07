@@ -18,8 +18,8 @@ function ProductItem({ product }) {
     // Function to handle adding the product to the cart
     const handleAddToCart = () => {
         // Logic to add the product to the cart
-        product.quantity = 1;
-        dispatch(addItem(product));
+        const productWithQuantity = {...product, quantity: 1}; // Set initial quantity to 1
+        dispatch(addItem(productWithQuantity));
     }
 
     
