@@ -1,10 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setProducts, searchProducts, filterByCategory, resetFilters } from '../utils/ProductSlice'
 import useFetchProducts from '../utils/useFetchProducts'
 import ProductItem from './ProductItem';
 import { IoSearchSharp } from "react-icons/io5";
 
+const MemoizedProductItem = memo(({ product }) => { 
+    return (
+        <ProductItem product={product} />
+    )
+})
 // Component to display a list of products
 function ProductList() {
     const dispatch = useDispatch();
@@ -63,7 +68,7 @@ function ProductList() {
             <ul className='grid lg:grid-cols-4  sm:grid-cols-2 grid-cols-1 gap-4 max-w-7xl mx-auto list-none'>
                 {filteredProducts.map(product => (
                     <li key={product.id}>
-                        <ProductItem product={product} />
+                        <MemoizedProductItem product={product} />
                     </li>
                 ))}
             </ul>
