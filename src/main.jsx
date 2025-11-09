@@ -2,11 +2,24 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Cart from './component/Cart.jsx'
-import ProductList from './component/ProductList.jsx'
-import ProductDetails from './component/ProductDetails.jsx'
-import Checkout from './component/Checkout.jsx'
 import NotFound from './component/NotFound.jsx'
+import { lazy, Suspense } from 'react'
+
+// Lazy load components for code splitting
+const LazyCart = lazy(() => import('./component/Cart.jsx'))
+const LazyProductList = lazy(() => import('./component/ProductList.jsx'))
+const LazyProductDetails = lazy(() => import('./component/ProductDetails.jsx'))
+const LazyCheckout = lazy(() => import('./component/Checkout.jsx'))
+
+// Loading fallback component
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mx-auto mb-4"></div>
+      <p className="text-gray-600">Loading...</p>
+    </div>
+  </div>
+)
 
 // Creates the router with routes configuration
 const router = createBrowserRouter([
@@ -17,19 +30,35 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/cart',
-        element: <Cart />,
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <LazyCart />
+          </Suspense>
+        ),
       },
       {
         path: '/',
-        element: <ProductList />,
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <LazyProductList />
+          </Suspense>
+        ),
       },
       {
         path: '/product/:id',
-        element: <ProductDetails />,
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <LazyProductDetails />
+          </Suspense>
+        ),
       },
       {
         path: '/checkout',
-        element: <Checkout />,
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <LazyCheckout />
+          </Suspense>
+        ),
       },
     ],
   },
