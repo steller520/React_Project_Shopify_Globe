@@ -58,9 +58,9 @@ function ProductList() {
                     Reset
                 </button>
             </div>
-            <div className='flex items-center justify-between p-8 bg-blue-100 max-w-7xl mx-auto border border-blue-300 rounded-lg h-10 shadow-md'>
-                <h1 className='ml-4 text-3xl text-blue-800 font-semibold ' >Search</h1>
-                <div className='flex justify-between items-center w-auto gap-1.5'>
+            <div className='flex flex-col md:flex-row items-center justify-around gap-4 md:gap-0 md:justify-between p-8 bg-blue-100 max-w-7xl mx-auto border border-blue-300 rounded-lg h-auto md:h-10 shadow-md'>
+                <h1 className='md:ml-4 text-3xl text-blue-800 font-semibold ' >Search</h1>
+                <div className='flex justify-between border border-blue-600 md:border-none p-4 rounded-2xl items-center w-auto gap-1.5'>
                     <IoSearchSharp className=' ml-2 w-8 h-8 text-blue-600 text-2xl mt-2' />
                     <input onChange={(e) => {handleSearch(e.target.value)}} className='border border-gray-300 rounded-lg px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white' type="text" placeholder='Search products...' />
                 </div>
