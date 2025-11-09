@@ -14,12 +14,16 @@ function Checkout() {
     const cart = useSelector((state) => state.cart);
     const cartItems = cart.items;
     const totalAmount = cart.totalAmount;
+
     // State to manage form errors
     const [errors, setErrors] = useState({});
+
     // State to manage the redirect timer
     const [timer, setTimer] = useState(2);
+
     // Function to validate the checkout form
     const validateForm = () => {
+        // Validate form inputs
         const form = document.querySelector('form');
         const inputs = form.querySelectorAll('input');
         const newErrors = {};
@@ -52,6 +56,7 @@ function Checkout() {
         }
     }
 
+    // Effect to handle redirect countdown after order placement
     useEffect(() => {
         window.scrollTo(0, 0);
         
@@ -74,14 +79,17 @@ function Checkout() {
     }, [isClicked, navigate]);
 
 
-    return (
-        <>  {isClicked ?
+    return (   
+        <>  {isClicked 
+            // if order is placed
+             ?
             <div className="min-h-screen flex items-center justify-center bg-green-50">
                 <div className="bg-white p-8 rounded-lg shadow-md text-center">
                     <h2 className="text-2xl font-bold mb-4 text-green-700">Order Placed Successfully!</h2>
                     <p className="text-gray-700 mb-6">Thank you for your purchase. Your order is being processed.</p>
                     <svg className="w-16 h-16 mx-auto text-green-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <p className="text-gray-600">You will receive a confirmation email shortly.</p>
+                    {/* Redirect countdown timer */}
                     <p>Redirecting to home page in {timer} seconds...</p>
                 </div>
             </div>
@@ -183,6 +191,7 @@ function Checkout() {
                                     <span>${(totalAmount * 1.05).toFixed(2)}</span>
                                 </div>
                             </div>
+                            {/* button to place order */}
                             <button onClick={() => handlePlaceOrder()} className="w-full mt-6 bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition-colors font-semibold">
                                 Place Order
                             </button>
