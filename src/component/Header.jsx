@@ -15,7 +15,7 @@ function Header() {
     
     return (
         <>
-            <header id='header' className={`flex ${dropdownVisible ? 'mb-20 md:mb-auto' : ''} w-full sticky shadow-white/10  top-0 z-10 md:justify-between  items-center p-4 h-18 shadow-md text-xl font-bold bg-linear-to-r from-yellow-800 via-amber-700 to-yellow-900  text-white`}>
+            <header id='header' className={`flex ${dropdownVisible ? 'mb-28 md:mb-auto' : ''} w-full sticky shadow-white/10  top-0 z-10 md:justify-between  items-center p-4 h-18 shadow-md text-xl font-bold bg-linear-to-r from-yellow-800 via-amber-700 to-yellow-900  text-white`}>
                 {/* Logo and Title */}
                 <div className='md:ml-4 w-full  flex justify-between md:justify-normal items-center gap-4'>
                     <img onClick={handleDropDown} src="/src/assets/shopifyglobe.svg" alt="Shopify Globe" className='md:w-10 md:h-10 w-12 h-12' />

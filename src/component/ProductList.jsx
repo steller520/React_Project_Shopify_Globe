@@ -48,7 +48,7 @@ function ProductList() {
 
     return (
         <div>
-            <div className='flex flex-wrap lg:flex-nowrap md:gap-6 gap-4 mt-10 mb-4 mx-auto justify-center max-w-7xl'>
+            <div className='flex flex-wrap lg:flex-nowrap md:gap-6 gap-4 mt-12 mb-4 mx-auto justify-center max-w-7xl'>
                 {categories.map((category, index) => (
                     <button key={index} value={category.toLowerCase()} onClick={(e) => handleClick(e)} className='flex justify-center items-center border bg-linear-to-r from-yellow-700 to-red-700 text-white shadow-lg border-yellow-600 lg:w-64 lg:h-18 w-32 h-12 rounded-lg hover:bg-red-600 transition-all ease-in-out'>
                         {category.toUpperCase()}

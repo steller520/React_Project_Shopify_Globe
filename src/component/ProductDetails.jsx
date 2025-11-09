@@ -32,6 +32,17 @@ function ProductDetails() {
                 dispatch(addItem(productWithQuantity));
         };
 
+        // Handle Customer Review Submission
+        const handleCustomerReview = (e) => {
+                e.preventDefault();
+                // Logic to handle customer review submission
+                const name = e.target.name.value;
+                const rating = e.target.rating.value;
+                const comment = e.target.comment.value;
+                const currentDate = new Date().toLocaleDateString('en-GB');
+                console.log("Review Submitted:", { name, rating, comment, currentDate });
+        }
+
         return (
                 <div className="min-h-screen bg-gray-50 py-8">
                         {singleProduct ? (
@@ -115,6 +126,50 @@ function ProductDetails() {
                                         </div>
                                 </div>
                         )}
+
+                        <div className="max-w-6xl mx-auto mt-8 p-8 bg-white rounded-xl shadow-lg">
+                                <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">Add Your Review</h2>
+                                <form onSubmit={handleCustomerReview} className="space-y-4">
+                                        <div >
+                                                <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">Your Name</label>
+                                                <input
+                                                        type="text"
+                                                        id="name"
+                                                        placeholder="Enter your name"
+                                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                                                />
+                                        </div>
+                                        <div>
+                                                <label htmlFor="rating" className="block text-sm font-semibold text-gray-700 mb-2">Rating</label>
+                                                <select
+                                                        id="rating"
+                                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                                                >
+                                                        <option value="">Select rating</option>
+                                                        <option value="5">5 ⭐⭐⭐⭐⭐</option>
+                                                        <option value="4">4 ⭐⭐⭐⭐</option>
+                                                        <option value="3">3 ⭐⭐⭐</option>
+                                                        <option value="2">2 ⭐⭐</option>
+                                                        <option value="1">1 ⭐</option>
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label htmlFor="comment" className="block text-sm font-semibold text-gray-700 mb-2">Your Review</label>
+                                                <textarea
+                                                        id="comment"
+                                                        rows="4"
+                                                        placeholder="Share your thoughts about this product..."
+                                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none"
+                                                ></textarea>
+                                        </div>
+                                        <button
+                                                type="submit"
+                                                className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-colors duration-300"
+                                        >
+                                                Submit Review
+                                        </button>
+                                </form>
+                        </div>
                 </div>
         )
 }
