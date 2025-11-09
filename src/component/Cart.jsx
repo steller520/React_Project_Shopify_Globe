@@ -1,8 +1,8 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CartItem from './CartItem';
 import { calculateTotal, clearCart } from '../utils/CartSlice';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Cart() {
     // Initialize useDispatch and useSelector
@@ -17,6 +17,7 @@ function Cart() {
     }, [cartItems, dispatch]);
     // Initialize useNavigate
     const navigate = useNavigate();
+    // Handle navigation to checkout
     const handleNavigate = (path) => {
         navigate(path);
     }
@@ -26,7 +27,7 @@ function Cart() {
             <div className="container mx-auto px-4 max-w-4xl">
                 <div className="flex justify-between items-center mb-8">
                     <h2 className="text-3xl font-bold mb-8 text-gray-800">Shopping Cart</h2>
-                    <button onClick={() => dispatch(clearCart())} className="text-red-500 hover:text-red-700 border border-red-500 rounded-2xl p-2 bg-red-200">Clear Cart</button>
+                    <button onClick={() => dispatch(clearCart())} className="bg-linear-to-r from-red-800 to-red-500 hover:text-yellow-400 border border-red-500 rounded-2xl p-2 text-white">Clear Cart</button>
                 </div>
                 {cartItems.length === 0 ? (
                     <div className="text-center py-16">
