@@ -26,7 +26,12 @@ function CartItem({ item }) {
     return (
         <>
             <div className='flex items-center gap-4 mb-4 sm:mb-0'>
-                <img src={item.images[0] || item.images[1] || item.images[2]} alt={item.title} className="w-20 h-20 object-cover rounded-lg border border-gray-200" />
+                <img 
+                    src={item.images[0] || item.images[1] || item.images[2]} 
+                    alt={item.title} 
+                    className="w-20 h-20 object-cover rounded-lg border border-gray-200"
+                    loading="lazy"
+                />
                 <span className="text-lg font-medium text-gray-800">{item.title}</span>
             </div>
             <div className='flex flex-col items-end gap-3'>

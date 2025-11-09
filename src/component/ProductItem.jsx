@@ -29,7 +29,12 @@ function ProductItem({ product }) {
         <div className="relative flex flex-col border shadow-white/55 hover:scale-105 border-gray-200 p-4 m-4 rounded-lg shadow-lg bg-white/95 hover:shadow-xl transition-all duration-300 ease-in-out">
             <div>
                 <Link to={`/product/${product.id}`}>
-                <img className='w-full border border-grey-200 h-48 object-contain mb-4' src={product.images[0] || product.images[1] || product.images[2]} alt={product.title} />
+                <img 
+                    className='w-full border border-grey-200 h-48 object-contain mb-4' 
+                    src={product.images[0] || product.images[1] || product.images[2]} 
+                    alt={product.title}
+                    loading="lazy"
+                />
                 </Link>
                 {/* Product Title */}
                 <h3 className='text-xl font-semibold mb-2 text-gray-800 line-clamp-2'>{product.title}</h3>

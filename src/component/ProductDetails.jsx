@@ -26,9 +26,12 @@ return (
                         {singleProduct ? (
                                         <div className="flex flex-col md:flex-row max-w-6xl mx-auto p-8 bg-white rounded-xl shadow-lg gap-8">
                                                         <div className="shrink-0 flex justify-center items-start">
-                                                                        <img className="w-full md:w-96 h-96 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300" 
-                                                                                         src={singleProduct.images[0] || singleProduct.images[1] || singleProduct.images[2]} 
-                                                                                         alt={singleProduct.title} />
+                                                                        <img 
+                                                                            className="w-full md:w-96 h-96 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300" 
+                                                                            src={singleProduct.images[0] || singleProduct.images[1] || singleProduct.images[2]} 
+                                                                            alt={singleProduct.title}
+                                                                            loading="lazy"
+                                                                        />
                                                         </div>
                                                         <div className="flex-1">
                                                                         <h2 className="text-4xl font-bold mb-4 text-gray-800">{singleProduct.title}</h2>
