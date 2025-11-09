@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link, useRouteError } from 'react-router-dom'
 
+// NotFound component to display when a route is not found
 function NotFound() {
+  // Get the error information from the route
   const error = useRouteError();
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-5 bg-linear-to-br from-blue-50 to-indigo-100">
@@ -16,6 +18,7 @@ function NotFound() {
         <p className="text-sm text-gray-500 mb-8 font-mono bg-gray-100 p-3 rounded-lg break-all">
           Path: {window.location.pathname}
         </p>
+        {/* Link to go back to the previous page */}
         <Link 
           to="/"
           className="inline-block py-3 px-8 bg-linear-to-r from-blue-600 to-indigo-600 text-white no-underline rounded-lg text-base font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"

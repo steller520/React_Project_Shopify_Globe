@@ -1,11 +1,7 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useFetchProducts from '../utils/useFetchProducts'
 import ProductItem from './ProductItem';
 import { IoSearchSharp } from "react-icons/io5";
-import { Link } from 'react-router-dom';
-
-// Memoized version of ProductItem - prevents unnecessary re-renders
-const MemoizedProductItem = memo(ProductItem);
 
 // Component to display a list of products
 function ProductList() {
@@ -60,7 +56,7 @@ function ProductList() {
             <ul className='grid lg:grid-cols-4  sm:grid-cols-2 grid-cols-1 gap-4 max-w-7xl mx-auto list-none'>
                 {filteredProducts.map(product => (
                     <li key={product.id}>
-                        <MemoizedProductItem product={product} />
+                        <ProductItem product={product} />
                     </li>
                 ))}
             </ul>

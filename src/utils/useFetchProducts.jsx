@@ -6,9 +6,15 @@ function useFetchProducts() {
     // Fetch products from the API when the component mounts
     useEffect(() => {
         const fetchProducts = async () => {
-            const response = await fetch('https://dummyjson.com/products')
-            const data = await response.json()
-            setProducts(data.products)
+            try {
+                const response = await fetch('https://dummyjson.com/products')
+                const data = await response.json()
+                setProducts(data.products)
+            } catch (error) {
+                console.error("Error fetching products:", error)
+            }finally {
+                console.log("Fetched Products:", products);
+            }
         }
 
         fetchProducts()
