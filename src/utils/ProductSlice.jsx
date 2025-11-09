@@ -37,8 +37,20 @@ const productSlice = createSlice({
             state.searchQuery = "";
             state.selectedCategory = null;
         },
+        // Add a review to a product
+        addReview: (state, action) => {
+            const { productId, review } = action.payload;
+            
+            const product = state.allProducts.find(p => p.id === productId);
+            if (product) {
+                if (!product.reviews) {
+                    product.reviews = [];
+                }
+                product.reviews.push(review);
+            }
+        },
     },
 });
 
-export const { setProducts, searchProducts, filterByCategory, resetFilters } = productSlice.actions;
+export const { setProducts, searchProducts, filterByCategory, resetFilters, addReview } = productSlice.actions;
 export default productSlice.reducer;

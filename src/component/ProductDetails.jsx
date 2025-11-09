@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import useFetchProducts from '../utils/useFetchProducts'
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../utils/CartSlice';
+import { addReview } from '../utils/ProductSlice';
 
 function ProductDetails() {
         // Redux dispatch
         const dispatch = useDispatch();
         // fetch all products
-        const product = useFetchProducts();
+        const product = useSelector(state => state.products.allProducts);
 
         // import the id parameter from the URL
         const { id } = useParams();
 
         // single product state
         const [singleProduct, setSingleProduct] = useState(null);
+
+        
 
         // Find the product by ID
         useEffect(() => {
@@ -40,8 +43,19 @@ function ProductDetails() {
                 const rating = e.target.rating.value;
                 const comment = e.target.comment.value;
                 const currentDate = new Date().toLocaleDateString('en-GB');
-                console.log("Review Submitted:", { name, rating, comment, currentDate });
-        }
+                const email = e.target.email.value;
+                console.log("Review Submitted:", { name, rating, comment, currentDate, email });
+                dispatch(addReview({
+                        productId: singleProduct.id,
+                        review: {
+                                'rating': rating,
+                                'comment': comment,
+                                'date': currentDate,
+                                'reviewerName': name,
+                                'reviewerEmail': Math.floor(Math.random() * 1000000)
+                        }
+                }));
+        };
 
         return (
                 <div className="min-h-screen bg-gray-50 py-8">
@@ -161,6 +175,15 @@ function ProductDetails() {
                                                         placeholder="Share your thoughts about this product..."
                                                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none"
                                                 ></textarea>
+                                        </div>
+                                        <div>
+                                                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">Your Email</label>
+                                                <input
+                                                        type="email"
+                                                        id="email"
+                                                        placeholder="Enter your email"
+                                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                                                />
                                         </div>
                                         <button
                                                 type="submit"
