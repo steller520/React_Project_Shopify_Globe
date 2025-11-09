@@ -5,17 +5,14 @@ import useFetchProducts from '../utils/useFetchProducts'
 import ProductItem from './ProductItem';
 import { IoSearchSharp } from "react-icons/io5";
 
-const MemoizedProductItem = memo(({ product }) => { 
-    return (
-        <ProductItem product={product} />
-    )
-})
+const MemoizedProductItem = memo(ProductItem);
+
 // Component to display a list of products
 function ProductList() {
     const dispatch = useDispatch();
     
     // Fetch products using the custom hook
-    const products = useFetchProducts();
+    const { products, loading, error } = useFetchProducts();
     
     // Get filtered products from Redux store
     const filteredProducts = useSelector((state) => state.products.filteredProducts);
@@ -29,6 +26,30 @@ function ProductList() {
             dispatch(setProducts(products));
         }
     }, [products, dispatch]);
+
+    // Handle loading and error states
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mx-auto mb-4"></div>
+                    <p className="text-gray-600">Loading Products...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-red-50">
+                <div className="text-center p-8 bg-white rounded-lg shadow-md">
+                    <h2 className="text-2xl font-bold text-red-700 mb-4">Oops! Something went wrong.</h2>
+                    <p className="text-gray-700">We couldn't fetch the products. Please try again later.</p>
+                    <p className="text-sm text-gray-500 mt-4">Error: {error}</p>
+                </div>
+            </div>
+        );
+    }
 
     // Handle category click to filter products
     const handleClick = (event) => {
