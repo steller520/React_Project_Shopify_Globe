@@ -1,37 +1,44 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setProducts, searchProducts, filterByCategory, resetFilters } from '../utils/ProductSlice'
 import useFetchProducts from '../utils/useFetchProducts'
 import ProductItem from './ProductItem';
 import { IoSearchSharp } from "react-icons/io5";
 
 // Component to display a list of products
 function ProductList() {
+    const dispatch = useDispatch();
+    
     // Fetch products using the custom hook
     const products = useFetchProducts();
-    // Filter products based on selected category
-    const [filteredProducts, setFilteredProducts] = useState([]);
-    // useEffect to update filtered products when products change
+    
+    // Get filtered products from Redux store
+    const filteredProducts = useSelector((state) => state.products.filteredProducts);
+    const categories = useSelector((state) => 
+        [...new Set(state.products.allProducts.map(product => product.category))]
+    );
+    
+    // Set products in Redux when fetched
     useEffect(() => {
-        setFilteredProducts(products);
-    }, [products]);
+        if (products.length > 0) {
+            dispatch(setProducts(products));
+        }
+    }, [products, dispatch]);
 
     // Handle category click to filter products
     const handleClick = (event) => {
         const category = event.target.value;
-        const filtered = products.filter(product => product.category.toLowerCase() === category);
-        setFilteredProducts(filtered);
+        dispatch(filterByCategory(category));
     }
-
-    console.log(filteredProducts);
-    // Extract unique categories from the products
-    const categories = [...new Set(products.map(product => product.category))];
-    console.log(categories);
 
     // Handle search input to filter products by title
     const handleSearch = (query) => {
-        const searchedProducts = products.filter(product =>
-            product.title.toLowerCase().includes(query.toLowerCase())
-        );
-        setFilteredProducts(searchedProducts);
+        dispatch(searchProducts(query));
+    }
+
+    // Handle reset filters
+    const handleReset = () => {
+        dispatch(resetFilters());
     }
 
     return (
@@ -42,7 +49,7 @@ function ProductList() {
                         {category.toUpperCase()}
                     </button>
                 ))}
-                <button onClick={() => setFilteredProducts(products)} className='flex justify-center items-center border bg-linear-to-r from-yellow-700 to-red-700 text-white shadow-lg border-blue-600 lg:w-64 lg:h-18 w-32 h-12 rounded-lg hover:bg-blue-600 transition-all'>
+                <button onClick={handleReset} className='flex justify-center items-center border bg-linear-to-r from-yellow-700 to-red-700 text-white shadow-lg border-blue-600 lg:w-64 lg:h-18 w-32 h-12 rounded-lg hover:bg-blue-600 transition-all'>
                     Reset
                 </button>
             </div>
