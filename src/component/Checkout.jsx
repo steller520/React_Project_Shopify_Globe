@@ -1,23 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCart } from '../utils/CartSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Checkout() {
-  const dispatch = useDispatch();
-
+    // Initialize dispatch for Redux actions
+    const dispatch = useDispatch();
+    // Initialize navigate for routing
+    const navigate = useNavigate();
+    // State to track if the order has been placed
     const [isClicked, setIsClicked] = useState(false);
-
+    // Get cart items and total amount from Redux store
     const cart = useSelector((state) => state.cart);
     const cartItems = cart.items;
     const totalAmount = cart.totalAmount;
-
+    // State to manage form errors
     const [errors, setErrors] = useState({});
-
+    // State to manage the redirect timer
+    const [timer, setTimer] = useState(2);
+    // Function to validate the checkout form
     const validateForm = () => {
         const form = document.querySelector('form');
         const inputs = form.querySelectorAll('input');
         const newErrors = {};
 
+        // Check for empty fields
         inputs.forEach(input => {
             const fieldName = input.name || input.placeholder.toLowerCase().replace(/\s+/g, '');
             if (!input.value.trim()) {
@@ -32,10 +39,12 @@ function Checkout() {
             newErrors['email'] = 'Please enter a valid email address';
         }
 
+        // Set errors state and return validation result
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
-    
+
+    // Handle placing the order
     const handlePlaceOrder = () => {
         if (validateForm()) {
             setIsClicked(true);
@@ -43,15 +52,37 @@ function Checkout() {
         }
     }
 
-    
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        
+        if (isClicked) {
+            // Countdown timer - decreases every second
+            const interval = setInterval(() => {
+                setTimer((prev) => {
+                    if (prev <= 1) {
+                        clearInterval(interval);
+                        navigate('/');
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+
+            // Cleanup interval on unmount
+            return () => clearInterval(interval);
+        }
+    }, [isClicked, navigate]);
+
+
     return (
-        <>  { isClicked ? 
+        <>  {isClicked ?
             <div className="min-h-screen flex items-center justify-center bg-green-50">
                 <div className="bg-white p-8 rounded-lg shadow-md text-center">
                     <h2 className="text-2xl font-bold mb-4 text-green-700">Order Placed Successfully!</h2>
                     <p className="text-gray-700 mb-6">Thank you for your purchase. Your order is being processed.</p>
                     <svg className="w-16 h-16 mx-auto text-green-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <p className="text-gray-600">You will receive a confirmation email shortly.</p>
+                    <p>Redirecting to home page in {timer} seconds...</p>
                 </div>
             </div>
             :
@@ -64,7 +95,7 @@ function Checkout() {
                         {/* Checkout Form */}
                         <div className="lg:col-span-2 bg-white rounded-lg shadow-md p-6">
                             <h2 className="text-xl font-semibold mb-4">Shipping Information</h2>
-                            <form  className="space-y-4">
+                            <form className="space-y-4">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <input
